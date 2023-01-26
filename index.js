@@ -27,6 +27,11 @@ function containsNumbers(text){
     }
 }
 
+function createPortfolio() {
+    return [];
+}
+
 exports.sum = sum;
 exports.div = div;
 exports.containsNumbers = containsNumbers;
+exports.createPortfolio = createPortfolio;

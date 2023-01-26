@@ -85,3 +85,7 @@ test('Empty string', () => {
     const result = myFunctions.containsNumbers("");
     expect(result).toBeFalsy();
 });
+
+test('2.1 - Create Portfolio', () => {
+    const result = myFunctions.createPortfolio();
+})
