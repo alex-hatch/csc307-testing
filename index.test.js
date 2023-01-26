@@ -89,3 +89,11 @@ test('Empty string', () => {
 test('2.1 - Create Portfolio', () => {
     const result = myFunctions.createPortfolio();
 })
+
+test('2.2 - Empty Portfolio', () => {
+    const result = myFunctions.createPortfolio();
+    expect(result.length).toBe(0);
+})
+
+
+
