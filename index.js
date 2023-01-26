@@ -1,32 +1,3 @@
-function sum(a, b) {
-    if(typeof(a) === 'number' && typeof(b) === 'number')
-        return a + b;
-    else
-        throw new TypeError("Please supply only numbers");
-}
-  
-function div (a, b){
-    if(typeof(a) === 'number' && typeof(b) === 'number') {
-        if(b === 0) { 
-            throw new RangeError("Cannot divide by 0");
-        }
-        return a / b;
-    } else {
-        throw new TypeError("Please supply only numbers");
-    }
-}
-
-function containsNumbers(text){
-    if(typeof(text) === 'string') {
-        for (let i = 0; i < text.length; i++)
-            if (!isNaN(text.charAt(i)))
-                return true;
-        return false;
-    } else {
-        throw new TypeError("Please only provide a string");
-    }
-}
-
 function createPortfolio() {
     return {};
 }
@@ -55,6 +26,9 @@ function makeSale(portfolio, symbol, numShares) {
     } else {
         portfolio[symbol] = (portfolio[symbol]) -= numShares;
     }
+    if(portfolio[symbol] === 0) {
+        delete portfolio[symbol];
+    }
 }
 
 function countShares(portfolio, symbol) {
@@ -65,10 +39,6 @@ function countShares(portfolio, symbol) {
     return portfolio[symbol];
 }
   
-
-exports.sum = sum;
-exports.div = div;
-exports.containsNumbers = containsNumbers;
 exports.createPortfolio = createPortfolio;
 exports.uniqueCount = uniqueCount;
 exports.makePurchase = makePurchase;

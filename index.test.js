@@ -37,12 +37,6 @@ test('2.5 - Make a sale', () => {
     myFunctions.makePurchase(portfolio, "GME", 3);
     myFunctions.makeSale(portfolio, "GME", 2);
     expect(portfolio["GME"]).toBe(1);
-
-    expect(() => {
-        myFunctions.makeSale(portfolio, "GME", 2);
-    }).toThrow(RangeError("Cannot sell that many shares")
-    );
-
 })
 
 test('2.6 - Count shares for symbol', () => {
@@ -56,5 +50,21 @@ test('2.6 - Count shares for symbol', () => {
     expect(myFunctions.countShares(portfolio, "RBLX")).toBe(1);
 })
 
+test('2.7 - keep owned symbols', () => {
+    const portfolio = myFunctions.createPortfolio();
 
+    myFunctions.makePurchase(portfolio, "GME", 3);
+    myFunctions.makeSale(portfolio, "GME", 3);
+    expect(portfolio["GME"]).toBe(undefined);
+})
 
+test('2.8 - Make a sale (too many shares)', () => {
+    const portfolio = myFunctions.createPortfolio();
+    myFunctions.makePurchase(portfolio, "GME", 3);
+
+    expect(() => {
+        myFunctions.makeSale(portfolio, "GME", 4);
+    }).toThrow(RangeError("Cannot sell that many shares")
+    );
+
+})
