@@ -28,21 +28,42 @@ function containsNumbers(text){
 }
 
 function createPortfolio() {
-    return [];
+    return {};
 }
 
-function uniqueCount(arr) {
-  let seen = new Set();
-  let count = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (!seen.has(arr[i])) {
-      count++;
-      seen.add(arr[i]);
+function uniqueCount(portfolio) {
+    return Object.keys(portfolio).length;
+}
+
+function makePurchase(portfolio, symbol, numShares) {
+    if(numShares <= 0) {
+        throw new RangeError("numshares can only be positive");
     }
-  }
-  return count;
+
+    if(portfolio[symbol] == undefined) {
+        portfolio[symbol] = numShares;
+
+    } else {
+        portfolio[symbol] = (portfolio[symbol]) += numShares;
+    }
 }
 
+function makeSale(portfolio, symbol, numShares) {
+    let currentStock = portfolio[symbol];
+    if(currentStock - numShares < 0) {
+        throw new RangeError("Cannot sell that many shares");
+    } else {
+        portfolio[symbol] = (portfolio[symbol]) -= numShares;
+    }
+}
+
+function countShares(portfolio, symbol) {
+    if(portfolio[symbol] === undefined) {
+        return 0;
+    }
+    
+    return portfolio[symbol];
+}
   
 
 exports.sum = sum;
@@ -50,3 +71,6 @@ exports.div = div;
 exports.containsNumbers = containsNumbers;
 exports.createPortfolio = createPortfolio;
 exports.uniqueCount = uniqueCount;
+exports.makePurchase = makePurchase;
+exports.countShares = countShares;
+exports.makeSale = makeSale;

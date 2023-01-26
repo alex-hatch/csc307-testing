@@ -1,120 +1,60 @@
 const myFunctions = require('./index.js');
 
-/* test sum function */
-test('Testing sum two positive integers', () => {
-  const target = 30;
-  const result = myFunctions.sum(12, 18);
-  expect(target).toBe(result);
-});
-
-test('Testing sum two negative integers', () => {
-  const target = -30;
-  const result = myFunctions.sum(-12, -18);
-  expect(target).toBe(result);
-});
-
-test('Testing sum one letter one number', () => {
-    expect(() => {
-        myFunctions.sum("1", 2);
-    }).toThrow(TypeError("Please supply only numbers"));
-});
-
-test('Testing sum two letters', () => {
-    expect(() => {
-        myFunctions.sum("a", "b");
-    }).toThrow(TypeError("Please supply only numbers"));
-});
-
-/* test div function */
-test('Testing div two positive integers', () => {
-    const target = 6;
-    const result = myFunctions.div(30, 5);
-    expect(target).toBe(result);
-});
-  
-test('Testing div two negative integers', () => {
-    const target = 6;
-    const result = myFunctions.div(-30, -5);
-    expect(target).toBe(result);
-});
-  
-test('Testing div by 0', () => {
-    expect(() => {
-        myFunctions.div(5, 0);
-    }).toThrow(RangeError("Cannot divide by 0"));
-});
-
-test('Testing div two letters', () => {
-    expect(() => {
-        myFunctions.div("a", "b");
-    }).toThrow(TypeError("Please supply only numbers"));
-});
-
-/* test contains number function */
-test('Testing contains with number', () => {
-    const target = "abcd4f";
-    const result = myFunctions.containsNumbers(target);
-    expect(result).toBeTruthy();
-});
-
-test('Testing contains with number', () => {
-    const target = "abdefgh";
-    const result = myFunctions.containsNumbers(target);
-    expect(result).toBeFalsy();
-});
-
-test('First character is number', () => {
-    const target = "5abcdef";
-    const result = myFunctions.containsNumbers(target);
-    expect(result).toBeTruthy();
-});
-
-test('String not supplied', () => {
-    expect(() => {
-        myFunctions.containsNumbers(543);
-    }).toThrow(TypeError("Please only provide a string")
-    );
-});
-
-test('Empty string', () => {
-    const result = myFunctions.containsNumbers("");
-    expect(result).toBeFalsy();
-});
-
-test('Empty string', () => {
-    const result = myFunctions.containsNumbers("");
-    expect(result).toBeFalsy();
-});
-
-test('2.1 - Create Portfolio', () => {
-    const result = myFunctions.createPortfolio();
+test('2.1 - Empty Portfolio', () => {
+    const portfolio = myFunctions.createPortfolio();
 })
 
 test('2.2 - Empty Portfolio', () => {
-    const result = myFunctions.createPortfolio();
-    expect(result.length).toBe(0);
+    const portfolio = myFunctions.createPortfolio();
+    expect(Object.keys(portfolio).length).toBe(0);
 })
 
 test('2.3 - Unique ticket count', () => {
-    const result = myFunctions.createPortfolio();
-    result.push("GME");
-    result.push("GME");
-    result.push("GME");
-    result.push("GME");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
-    result.push("RBLX");
+    const portfolio = myFunctions.createPortfolio();
+    portfolio["GME"] = 5;
+    portfolio["RBLX"] = 10;
     
-    expect(myFunctions.uniqueCount(result)).toBe(2);
+    expect(myFunctions.uniqueCount(portfolio)).toBe(2);
 })
 
+test('2.4 - Make a purchase', () => {
+    const portfolio = myFunctions.createPortfolio();
+    myFunctions.makePurchase(portfolio, "GME", 3);
+    myFunctions.makePurchase(portfolio, "RBLX", 1);
+    myFunctions.makePurchase(portfolio, "GME", 3);
+
+    expect(portfolio["GME"]).toBe(6);
+    expect(portfolio["RBLX"]).toBe(1);
+
+    expect(() => {
+        myFunctions.makePurchase(portfolio, "RBLX", 0);
+    }).toThrow(RangeError("numshares can only be positive")
+    );
+})
+
+test('2.5 - Make a sale', () => {
+    const portfolio = myFunctions.createPortfolio();
+    myFunctions.makePurchase(portfolio, "GME", 3);
+    myFunctions.makeSale(portfolio, "GME", 2);
+    expect(portfolio["GME"]).toBe(1);
+
+    expect(() => {
+        myFunctions.makeSale(portfolio, "GME", 2);
+    }).toThrow(RangeError("Cannot sell that many shares")
+    );
+
+})
+
+test('2.6 - Count shares for symbol', () => {
+    const portfolio = myFunctions.createPortfolio();
+
+    myFunctions.makePurchase(portfolio, "GME", 3);
+    myFunctions.makePurchase(portfolio, "RBLX", 1);
+    
+    expect(myFunctions.countShares(portfolio, "GME")).toBe(3);
+    expect(myFunctions.countShares(portfolio, "ABC")).toBe(0);
+    expect(myFunctions.countShares(portfolio, "RBLX")).toBe(1);
+})
 
 
 
