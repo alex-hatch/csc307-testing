@@ -31,7 +31,22 @@ function createPortfolio() {
     return [];
 }
 
+function uniqueCount(arr) {
+  let seen = new Set();
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (!seen.has(arr[i])) {
+      count++;
+      seen.add(arr[i]);
+    }
+  }
+  return count;
+}
+
+  
+
 exports.sum = sum;
 exports.div = div;
 exports.containsNumbers = containsNumbers;
 exports.createPortfolio = createPortfolio;
+exports.uniqueCount = uniqueCount;

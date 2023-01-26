@@ -95,5 +95,26 @@ test('2.2 - Empty Portfolio', () => {
     expect(result.length).toBe(0);
 })
 
+test('2.3 - Unique ticket count', () => {
+    const result = myFunctions.createPortfolio();
+    result.push("GME");
+    result.push("GME");
+    result.push("GME");
+    result.push("GME");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    result.push("RBLX");
+    
+    expect(myFunctions.uniqueCount(result)).toBe(2);
+})
+
+
 
 
